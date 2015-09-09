@@ -1,0 +1,12 @@
+Author = Petter Nilsen <pni@thule.no>
+Description = "Push a completed review to the active repository."
+
+[Page CriticPushToGit/push]
+Description = Push review branch to a branch.
+Script = push.js
+Function = main
+
+[Inject showreview]
+Description = (Optionally) inject "Push to git" button.
+Script = inject.js
+Function = showreview
