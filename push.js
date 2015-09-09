@@ -32,10 +32,17 @@ function main(method, path, query) {
       throw "The review is not accepted!";
 
     var repository = review.branch.getWorkCopy();
-    var upstream = repository.repository.path;
+    var remote = review.trackedBranch.remote;
 
     try {
-      repository.run("push", upstream, "HEAD:refs/heads/master");
+      repository.run("remote", "add", "TrackedRepo", remote);
+    } catch (error) {
+      /* Fails if there's already a remote named 'TrackedRepo', which is fine;
+         it'll inevitably have been added by us earlier. */
+    }
+
+    try {
+      repository.run("push", "TrackedRepo", "HEAD:refs/heads/master");
     } finally {
     }
 
